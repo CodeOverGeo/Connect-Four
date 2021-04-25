@@ -31,6 +31,10 @@
   border: dashed 1px lightgray;
 }
 
-#column-top td:hover {
-  background-color: gold;
+#column-top.player1 td:hover {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
+#column-top.player2 td:hover {
+  background-color: rgba(0, 0, 255, 0.5);
 }

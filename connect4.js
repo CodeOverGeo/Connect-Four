@@ -34,6 +34,7 @@ function makeHtmlBoard() {
   // TODO: add top row on board for players to be able to select column for dropping pieces
   const top = document.createElement('tr');
   top.setAttribute('id', 'column-top');
+  top.classList.add('player1');
   top.addEventListener('click', handleClick);
   // Create data cell columns that will eventually hold game pieces
   for (let x = 0; x < WIDTH; x++) {
@@ -77,6 +78,12 @@ function placeInTable(y, x) {
   currTC.append(div);
 }
 
+function hoverColor() {
+  const currColTop = document.getElementById('column-top');
+  currColTop.classList.toggle('player1');
+  currColTop.classList.toggle('player2');
+}
+
 /** endGame: announce game end */
 
 function endGame(msg) {
@@ -102,6 +109,7 @@ function handleClick(evt) {
 
   // check for win
   if (checkForWin()) {
+    top.removeEventListener(click, handleClick);
     return endGame(`Player ${currPlayer} won`);
   }
 
@@ -114,6 +122,9 @@ function handleClick(evt) {
   // switch players
   // TODO: switch currPlayer 1 <-> 2
   currPlayer === 1 ? (currPlayer = 2) : (currPlayer = 1);
+
+  //Change column top hover color
+  hoverColor();
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
