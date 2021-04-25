@@ -32,19 +32,19 @@ function makeHtmlBoard() {
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
   const htmlBoard = document.getElementById('board');
   // TODO: add top row on board for players to be able to select column for dropping pieces
-  var top = document.createElement('tr');
+  const top = document.createElement('tr');
   top.setAttribute('id', 'column-top');
   top.addEventListener('click', handleClick);
   // Create data cell columns that will eventually hold game pieces
-  for (var x = 0; x < WIDTH; x++) {
-    var headCell = document.createElement('td');
+  for (let x = 0; x < WIDTH; x++) {
+    const headCell = document.createElement('td');
     headCell.setAttribute('id', x);
     top.append(headCell);
   }
   htmlBoard.append(top);
 
   // TODO: Create data cell rows that will eventually hold game pieces
-  for (var y = 0; y < HEIGHT; y++) {
+  for (let y = 0; y < HEIGHT; y++) {
     const row = document.createElement('tr');
     for (var x = 0; x < WIDTH; x++) {
       const cell = document.createElement('td');
@@ -135,34 +135,36 @@ function checkForWin() {
   }
 
   // TODO: read and understand this code. Add comments to help you.
-
-  for (var y = 0; y < HEIGHT; y++) {
-    for (var x = 0; x < WIDTH; x++) {
-      var horiz = [
+  // Create an multidimentional array with the 4 squares needed to win
+  // starting with the current played piece.
+  for (let y = 0; y < HEIGHT; y++) {
+    for (let x = 0; x < WIDTH; x++) {
+      let horiz = [
         [y, x],
         [y, x + 1],
         [y, x + 2],
         [y, x + 3],
       ];
-      var vert = [
+      let vert = [
         [y, x],
         [y + 1, x],
         [y + 2, x],
         [y + 3, x],
       ];
-      var diagDR = [
+      let diagDR = [
         [y, x],
         [y + 1, x + 1],
         [y + 2, x + 2],
         [y + 3, x + 3],
       ];
-      var diagDL = [
+      let diagDL = [
         [y, x],
         [y + 1, x - 1],
         [y + 2, x - 2],
         [y + 3, x - 3],
       ];
-
+      //Use the previos array to check if any of the connect four combinations
+      //have won the game
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
         return true;
       }
