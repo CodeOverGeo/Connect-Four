@@ -109,7 +109,6 @@ function handleClick(evt) {
 
   // check for win
   if (checkForWin()) {
-    top.removeEventListener(click, handleClick);
     return endGame(`Player ${currPlayer} won`);
   }
 
