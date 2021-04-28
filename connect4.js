@@ -86,8 +86,19 @@ function hoverColor() {
 
 /** endGame: announce game end */
 
+function stopListen() {
+  const topRow = document.getElementById('column-top');
+  topRow.removeEventListener('click', handleClick);
+  // console.log(this.topRow);
+  // this.currColTop.removeEventListener('click', handleClick);
+}
+
 function endGame(msg) {
-  alert(msg);
+  // stopListen.bind(hoverColor);
+  setTimeout(() => {
+    stopListen();
+    alert(msg);
+  }, 100);
 }
 
 /** handleClick: handle click of column top to play piece */
@@ -114,16 +125,23 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
-  if (board.every((boardRow) => boardRow.every((boardCol) => boardCol))) {
-    endGame("IT'S A TIE!!!");
-  }
+  checkForTie();
 
   // switch players
   // TODO: switch currPlayer 1 <-> 2
-  currPlayer === 1 ? (currPlayer = 2) : (currPlayer = 1);
-
+  switchPlayer();
   //Change column top hover color
+}
+
+function switchPlayer() {
+  currPlayer = currPlayer === 1 ? 2 : 1;
   hoverColor();
+}
+
+function checkForTie() {
+  if (board.every((boardRow) => boardRow.every((boardCol) => boardCol))) {
+    return endGame("IT'S A TIE!!!");
+  }
 }
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
